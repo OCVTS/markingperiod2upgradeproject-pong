@@ -26,6 +26,7 @@ let powerTimer = 0;
 let powerCooldown = 15000;  // Time between powers (15 seconds)
 let lastPowerTime = 0;
 
+
 function setup() {
     createCanvas(800, 500);
     rectMode(CENTER);
@@ -182,3 +183,8 @@ function power5() {
     ballSpeed = 2;
     ballcolor = 'purple';
 }
+function revert() {
+    let powerrevert =    
+       
+}
+
