@@ -92,12 +92,12 @@ if (ballY - ballSize/2 <= 0) {
 if (ballX >= p2X - pWidth/2 && ballX <= p2X + pWidth /
     2 && ballY >= p2Y - pHeight/2 && ballY <= p2Y + pHeight/2)
     {
-        ballDirectionX = ballDirectionX * -1.6;
+        ballDirectionX = ballDirectionX * -1.2;
     }
     if (ballX >= p1X - pWidth/2 && ballX <= p1X + pWidth /
         2 && ballY >= p1Y - pHeight/2 && ballY <= p1Y + pHeight/2)
         {
-            ballDirectionX = ballDirectionX * -1.6;
+            ballDirectionX = ballDirectionX * -1.2;
         }
     
 
@@ -121,3 +121,14 @@ if (key == 's' && keyIsPressed == true) {
     p1Y = p1Y + p1Speed;
 }
 }//close keyTyped
+ function power1() {
+     p1Speed += 4;
+     p2Speed += 4;
+}
+function power2() {
+    pHeight += 200
+}
+function power3() {
+    pWidth += 200
+}
+
