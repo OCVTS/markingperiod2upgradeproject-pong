@@ -15,120 +15,170 @@ let ballSize = 20;
 let ballSpeed = 2;
 let ballDirectionX = 1;
 let ballDirectionY = 1;
+let ballColor = 'purple';  
 
 //scoreboard variables
 let p1Score = 0;
 let p2Score = 0;
 
+// Timer for random power triggers
+let powerTimer = 0;
+let powerCooldown = 15000;  // Time between powers (15 seconds)
+let lastPowerTime = 0;
+
 function setup() {
-    createCanvas(800,500);
+    createCanvas(800, 500);
     rectMode(CENTER);
     textAlign(CENTER);
-    // background(100);
-}// close setup
+}
 
-function draw(){
-keyPressed();
-keyTyped();
+function draw() {
+    keyPressed();
+    keyTyped();
 
     // draw court
     background(0);
     noFill();
     stroke(255);
     strokeWeight(3);
-    line(400,0,400,500);
-    rect(400,250,800,500);
+    line(400, 0, 400, 500);
+    rect(400, 250, 800, 500);
 
-    //draw players
+    // draw players
     noStroke();
     fill(255);
-    rect(p1X, p1Y, pWidth, pHeight)
-    rect(p2X, p2Y, pWidth, pHeight)
+    rect(p1X, p1Y, pWidth, pHeight);
+    rect(p2X, p2Y, pWidth, pHeight);
 
-// draw ball
-noStroke();
-fill(255);
-square(ballX, ballY, ballSize)
+    // draw ball with dynamic color
+    noStroke();
+    fill(ballColor);
+    square(ballX, ballY, ballSize);
 
-//draw score board
-noStroke();
-fill(255);
-textSize(30);
-text(p1Score, 350, 50);
-text(p2Score,450,50);
+    // draw score board
+    noStroke();
+    fill(255);
+    textSize(30);
+    text(p1Score, 350, 50);
+    text(p2Score, 450, 50);
 
-if (ballX >= 800) {
-    p1Score += 1;
-    ballX = 400;
-    ballY = 250;
-    ballDirectionX = -1;
-}
-
-
-if (ballX <= 0) {
-    p2Score += 1;
-    ballX = 400;
-    ballY = 250;
-    ballDirectionX = 1;
-}
-
-
-// move ball
-ballX = ballX + (ballSpeed * ballDirectionX);
-ballY = ballY + (ballSpeed * ballDirectionY);
-
-// collide with top / bottom walls
-if (ballY + ballSize/2 >= 500) {
-    ballDirectionY = ballDirectionY * -0.5;
-}
-if (ballY - ballSize/2 <= 0) {
-    ballDirectionY = ballDirectionY * -0.5;
-}
-
-
-
-
-// collide with players
-if (ballX >= p2X - pWidth/2 && ballX <= p2X + pWidth /
-    2 && ballY >= p2Y - pHeight/2 && ballY <= p2Y + pHeight/2)
-    {
-        ballDirectionX = ballDirectionX * -1.2;
+    if (ballX >= 800) {
+        p1Score += 1;
+        resetBall();
     }
-    if (ballX >= p1X - pWidth/2 && ballX <= p1X + pWidth /
-        2 && ballY >= p1Y - pHeight/2 && ballY <= p1Y + pHeight/2)
-        {
-            ballDirectionX = ballDirectionX * -1.2;
-        }
-    
+
+    if (ballX <= 0) {
+        p2Score += 1;
+        resetBall();
+    }
+
+    // move ball
+    ballX += (ballSpeed * ballDirectionX);
+    ballY += (ballSpeed * ballDirectionY);
+
+    if (ballY + ballSize / 2 >= 500 || ballY - ballSize / 2 <= 0) {
+        ballDirectionY *= -1;  // Flip direction without reducing speed
+    }
+
+    // collide with players
+    if (ballX >= p2X - pWidth / 1 && ballX <= p2X + pWidth / 2 && ballY >= p2Y - pHeight / 2 && ballY <= p2Y + pHeight / 2) {
+        ballDirectionX = ballDirectionX * -1.1;
+    }
+    if (ballX >= p1X - pWidth / 2 && ballX <= p1X + pWidth / 1 && ballY >= p1Y - pHeight / 2 && ballY <= p1Y + pHeight / 2) {
+        ballDirectionX = ballDirectionX * -1.1;
+    }
+
+    // Handle random power-ups every 15 seconds
+    let currentTime = millis();
+    if (currentTime - lastPowerTime >= powerCooldown) {
+        triggerRandomPower();
+        lastPowerTime = currentTime; // Reset the timer after the power is triggered
+    }
+}
+
+// Trigger a random power
+function triggerRandomPower() {
+    let powerChoice = floor(random(1, 6)); // Random number between 1 and 5
+    switch (powerChoice) {
+        case 1:
+            power1();
+            break;
+        // case 2:
+        //     power2();
+        //     break;
+        case 3:
+            power3();
+            break;
+        case 4:
+            power4();
+            break;
+        case 5:
+            power5();
+            break;
+    }
+}
+
+// Reset the ball position and direction
+function resetBall() {
+    ballX = 400;
+    ballY = 250;
+    ballDirectionX = ballDirectionX === 1 ? -1 : 1; // Change the direction
+}
 
 
-}//close draw
 
 function keyPressed() {
-    if (keyCode == UP_ARROW && keyIsPressed == true){
-        p2Y = p2Y - p2Speed;
-    }
-    if (keyCode == DOWN_ARROW && keyIsPressed == true) {
-        p2Y = p2Y + p2Speed;
-    }
-}// close keypressed
+    // if (keyCode == UP_ARROW && keyIsPressed == true){
+    //     p2Y = p2Y - p2Speed;
+    // }
+    // if (keyCode == DOWN_ARROW && keyIsPressed == true) {
+    //     p2Y = p2Y + p2Speed;
+    // }
+}// close keyPressed
 
 function keyTyped() {
-if (key == 'w' && keyIsPressed == true) {
-    p1Y = p1Y - p1Speed;
+      // Player movement
+      if (keyIsDown(UP_ARROW)) {
+        p2Y = p2Y - p2Speed;
+    }
+    if (keyIsDown(DOWN_ARROW)) {
+        p2Y = p2Y + p2Speed;
+    }
+
+    if (keyIsDown(87)) { // W key
+        p1Y = p1Y - p1Speed;
+    }
+    if (keyIsDown(83)) { // S key
+        p1Y = p1Y + p1Speed;
+    }
 }
-if (key == 's' && keyIsPressed == true) {
-    p1Y = p1Y + p1Speed;
-}
-}//close keyTyped
- function power1() {
-     p1Speed += 4;
-     p2Speed += 4;
-}
-function power2() {
-    pHeight += 200
-}
-function power3() {
-    pWidth += 200
+    // if (key == 'w' && keyIsPressed ) {
+    //     p1Y = p1Y - p1Speed;
+    // }
+    // if (key == 's' && keyIsPressed ) {
+    //     p1Y = p1Y + p1Speed;
+    // }
+//close keyTyped
+
+//power functions to change the ball's behavior or appearance
+function power1() {
+    p1Speed += 4;
+    p2Speed += 4;
 }
 
+// function power2() {
+//     pWidth += 200;
+// }
+
+function power3() {
+    ballSpeed += 5;
+    ballColor = 'red';  
+}
+
+function power4() {
+    pHeight += 200;
+}
+function power5() {
+    ballSpeed = 2;
+    ballcolor = 'purple';
+}
