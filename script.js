@@ -57,16 +57,32 @@ textSize(30);
 text(p1Score, 350, 50);
 text(p2Score,450,50);
 
+if (ballX >= 800) {
+    p1Score += 1;
+    ballX = 400;
+    ballY = 250;
+    ballDirectionX = -1;
+}
+
+
+if (ballX <= 0) {
+    p2Score += 1;
+    ballX = 400;
+    ballY = 250;
+    ballDirectionX = 1;
+}
+
+
 // move ball
 ballX = ballX + (ballSpeed * ballDirectionX);
 ballY = ballY + (ballSpeed * ballDirectionY);
 
 // collide with top / bottom walls
 if (ballY + ballSize/2 >= 500) {
-    ballDirectionY = ballDirectionY * -1;
+    ballDirectionY = ballDirectionY * -0.5;
 }
 if (ballY - ballSize/2 <= 0) {
-    ballDirectionY = ballDirectionY * -1;
+    ballDirectionY = ballDirectionY * -0.5;
 }
 
 
@@ -76,12 +92,12 @@ if (ballY - ballSize/2 <= 0) {
 if (ballX >= p2X - pWidth/2 && ballX <= p2X + pWidth /
     2 && ballY >= p2Y - pHeight/2 && ballY <= p2Y + pHeight/2)
     {
-        ballDirectionX = ballDirectionX * -1;
+        ballDirectionX = ballDirectionX * -1.6;
     }
     if (ballX >= p1X - pWidth/2 && ballX <= p1X + pWidth /
         2 && ballY >= p1Y - pHeight/2 && ballY <= p1Y + pHeight/2)
         {
-            ballDirectionX = ballDirectionX * -1;
+            ballDirectionX = ballDirectionX * -1.6;
         }
     
 
