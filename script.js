@@ -8,6 +8,7 @@ let pHeight = 100;
 let p1Speed = 5;
 let p2Speed = 5;
 
+
 //ball variables
 let ballX = 400;
 let ballY = 250;
@@ -23,8 +24,11 @@ let p2Score = 0;
 
 // Timer for random power triggers
 let powerTimer = 0;
-let powerCooldown = 15000;  // Time between powers (15 seconds)
+let powerCooldown = 000;  // Time between powers (15 seconds)
 let lastPowerTime = 0;
+
+// Power functions stored in an array
+let powerArray = [power1, power3, power4, power5]; // Add any other powers here
 
 
 function setup() {
@@ -97,25 +101,15 @@ function draw() {
     }
 }
 
-// Trigger a random power
+
+// Trigger a random power from the array
 function triggerRandomPower() {
-    let powerChoice = floor(random(1, 6)); // Random number between 1 and 5
-    switch (powerChoice) {
-        case 1:
-            power1();
-            break;
-        // case 2:
-        //     power2();
-        //     break;
-        case 3:
-            power3();
-            break;
-        case 4:
-            power4();
-            break;
-        case 5:
-            power5();
-            break;
+    let powerChoice = floor(random(0, powerArray.length)); // Random index of the power array
+    powerArray[powerChoice]();  // Call the selected power function
+    // Loop through the selected power functions
+    for (let i = 0; i < 1; i++) {  // Loop just once in this case for simplicity, or loop through multiple if needed
+        powerArray[powerChoice]();  // Call the selected power function
+        //makes powers called twice in one go besides that doesnt change much and adds a loop to my code
     }
 }
 
@@ -163,8 +157,8 @@ function keyTyped() {
 
 //power functions to change the ball's behavior or appearance
 function power1() {
-    p1Speed += 4;
-    p2Speed += 4;
+    p1Speed += 2;
+    p2Speed += 2;
 }
 
 // function power2() {
@@ -172,19 +166,16 @@ function power1() {
 // }
 
 function power3() {
-    ballSpeed += 5;
+    ballSpeed += 2.5;
     ballColor = 'red';  
 }
 
 function power4() {
-    pHeight += 200;
+    pHeight += 100;
 }
 function power5() {
-    ballSpeed = 2;
+    ballSpeed = 1;
     ballcolor = 'purple';
 }
-function revert() {
-    let powerrevert =    
-       
-}
+
 
