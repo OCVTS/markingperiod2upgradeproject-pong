@@ -24,7 +24,7 @@ let p2Score = 0;
 
 // Timer for random power triggers
 let powerTimer = 0;
-let powerCooldown = 000;  // Time between powers (15 seconds)
+let powerCooldown = 15000;  // Time between powers (15 seconds)
 let lastPowerTime = 0;
 
 // Power functions stored in an array
