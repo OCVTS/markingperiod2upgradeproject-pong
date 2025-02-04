@@ -1,0 +1,46 @@
+header {
+    text-align:center;
+    font-size:50px;
+    color:white;
+    background-color:black
+    
+  }
+  body {
+    background-color:lightcoral
+  }
+
+.fs {
+    width:550px;
+    height:300px;
+   text-align:left;
+   float:right;
+   background-color:antiquewhite;
+   
+}
+.fx 
+    {
+      width:580px;
+      height:300px;
+      text-align:left;
+      float:left;
+      background-color:antiquewhite;
+}
+.fg {
+ 
+ font-size:30px
+}
+footer {
+  text-align:bottom;
+  height:120px;
+  width:89px;
+  margin:auto;
+}
+#yellow {
+  font-size:40px
+}
+#blue {
+  float:right;
+  font-size:40px
+}
+  
+
