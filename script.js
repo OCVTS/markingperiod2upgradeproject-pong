@@ -171,6 +171,10 @@ function power4() {
 function power5() {
     ballSpeed = 2;
     ballColor = 'purple';  
+    setTimeout(() => {
+        ballSpeed = 3;
+        ballColor = 'purple';
+    }, 1000); // revert after some time
 }
 
 function power6() {
