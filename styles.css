@@ -15,6 +15,8 @@ header {
    text-align:left;
    float:right;
    background-color:antiquewhite;
+   border-radius: 12px;;
+   border: 44px;
    
 }
 .fx 
@@ -24,6 +26,9 @@ header {
       text-align:left;
       float:left;
       background-color:antiquewhite;
+      border:12px;
+      border-radius:12px
+      
 }
 .fg {
  

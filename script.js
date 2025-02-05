@@ -28,11 +28,10 @@ let p2Score = 0;
 let powerTimer = 0;
 let powerCooldown = 10000;  // Time between powers (10 seconds)
 let lastPowerTime = 0;
-let powerrevert = 8000
+
 
 // Power functions stored in an array
 let powerArray = [power1, power3, power4, power5, power6]; // Add any other powers here
-
 
 function setup() {
     createCanvas(800, 500);
@@ -96,7 +95,7 @@ function draw() {
         ballDirectionX = ballDirectionX * -1;
     }
 
-    // Handle random power-ups every 15 seconds
+    // Handle random power-ups every 10 seconds
     let currentTime = millis();
     if (currentTime - lastPowerTime >= powerCooldown) {
         triggerRandomPower();
@@ -104,16 +103,10 @@ function draw() {
     }
 }
 
-
 // Trigger a random power from the array
 function triggerRandomPower() {
     let powerChoice = floor(random(0, powerArray.length)); // Random index of the power array
     powerArray[powerChoice]();  // Call the selected power function
-    // Loop through the selected power functions
-    for (let i = 0; i < 1; i++) {  // Loop just once in this case for simplicity, or loop through multiple if needed
-        powerArray[powerChoice]();  // Call the selected power function
-        //makes powers called twice in one go, besides that doesnt change much and adds a loop to my code 
-    }
 }
 
 // Reset the ball position and direction
@@ -122,8 +115,6 @@ function resetBall() {
     ballY = 250;
     ballDirectionX = ballDirectionX === 1 ? -1 : 1; // Change the direction
 }
-
-
 
 function keyPressed() {
     // if (keyCode == UP_ARROW && keyIsPressed == true){
@@ -150,46 +141,43 @@ function keyTyped() {
         p1Y = p1Y + p1Speed;
     }
 }
-    // if (key == 'w' && keyIsPressed ) {
-    //     p1Y = p1Y - p1Speed;
-    // }
-    // if (key == 's' && keyIsPressed ) {
-    //     p1Y = p1Y + p1Speed;
-    // }
-//close keyTyped
 
 //power functions to change the ball's behavior or appearance
 function power1() {
     p1Speed += 2;
     p2Speed += 2;
+    setTimeout(() => {
+        p1Speed -= 2;
+        p2Speed -= 2;
+    }, 5000); // Revert speed after a certain amount of time
 }
-
-// function power2() {
-//     pWidth += 200;
-// }
 
 function power3() {
     ballSpeed += 2.5;
     ballColor = 'red';  
+    setTimeout(() => {
+        ballSpeed -= 2.5;
+        ballColor = 'purple';
+    }, 9000); //revert after some time
 }
 
 function power4() {
     pHeight += 100;
-
+    setTimeout(() => {
+        pHeight -= 100;
+    }, 5000); //revert after some time
 }
+
 function power5() {
     ballSpeed = 2;
     ballColor = 'purple';  
 }
+
 function power6() {
     ballSize += 1
-    ballColor = 'ghostwhite'
-    
+    ballColor = 'ghostwhite';
+    setTimeout(() => {
+        ballSize -= 1;
+        ballColor = 'purple';
+    }, 1000); //revert after some time
 }
-
-// function revert() {  
-//     if (powerrevert >= powerCooldown) {
-        
-//     }
-// }
-
